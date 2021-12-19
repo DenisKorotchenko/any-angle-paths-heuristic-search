@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 from PIL import Image, ImageDraw
 from util.structures import Map, Node
@@ -62,6 +63,5 @@ def draw(grid_map: Map, start:Node=None, goal:Node=None, path=None, nodes_opened
     _, ax = plt.subplots(dpi=150)
     ax.axes.xaxis.set_visible(False)
     ax.axes.yaxis.set_visible(False)
-    im.show()
     plt.imshow(np.asarray(im))
     plt.show()
