@@ -48,10 +48,10 @@ class Closed:
 
     def add_node(self, item : Node):
         self.elements.add(item)
-        self.indexes.add((item.i, item.j))
+        self.indexes.add((item.i, item.j, item.is_left))
 
-    def was_expanded(self, i, j):
-        return (i, j) in self.indexes
+    def was_expanded(self, i, j, is_left):
+        return (i, j, is_left) in self.indexes
 
 
 class OpenAnya:

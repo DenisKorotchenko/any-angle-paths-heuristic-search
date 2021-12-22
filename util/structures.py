@@ -2,6 +2,50 @@ from fractions import Fraction
 from util.functions import compute_cost
 
 
+class Node:
+    '''
+    Node class represents a search node
+
+    - i, j: coordinates of corresponding grid element
+    - g: g-value of the node
+    - h: h-value of the node
+    - F: f-value of the node
+    - parent: pointer to the parent-node
+
+    You might want to add other fields, methods for Node, depending on how you prefer to implement OPEN/CLOSED further on
+    '''
+
+    def __init__(self, i, j, g=0, h=0, F=None, parent=None, k=0, is_left=0):
+        self.i = i
+        self.j = j
+        self.g = g
+        self.h = h
+        self.k = k
+        if F is None:
+            self.F = self.g + h
+        else:
+            self.F = F
+        self.parent = parent
+        # If node is a diagonal intersection of obstacles then we need to fix available side of it
+        self.is_left=is_left
+
+    def __eq__(self, other):
+        return (self.i == other.i) and (self.j == other.j)
+
+    def __lt__(self, other):
+        '''
+        Comparison between self and other. Returns is self < other (self has higher priority).
+
+        In this lab we limit ourselves to cardinal-only uniform-cost moves (cost = 1) and
+        Manhattan distance for A*, so g, h, f-values are integers, so the comparison is straightforward
+        '''
+        return self.F < other.F or ((self.F == other.F) and (self.h < other.h)) \
+               or ((self.F == other.F) and (self.h == other.h) and (self.k > other.k))
+
+    def __hash__(self):
+        return hash((self.i, self.j))
+
+
 class Map:
 
     def __init__(self, k=None):
@@ -47,6 +91,10 @@ class Map:
         self._width = width
         self._height = height
         self._cells = grid_cells
+
+    def is_diagonal_intersection(self, i, j):
+        return (self.is_obstacle(i, j) and self.is_obstacle(i-1, j-1) and not self.is_obstacle(i-1, j) and not self.is_obstacle(i, j-1)) \
+            or (self.is_obstacle(i-1, j) and self.is_obstacle(i, j-1) and not self.is_obstacle(i-1, j-1) and not self.is_obstacle(i, j))
 
     def in_bounds_cells(self, i, j):
         '''
@@ -123,12 +171,14 @@ class Map:
         '''
         return not self._cells[i][j]
 
-    def get_neighbors(self, i, j, k=None):
+    def get_neighbors(self, node: Node, k=None):
         '''
         Get a list of neighbouring cells as (i,j) tuples.
         It's assumed that grid is 4-connected (i.e. only moves into cardinal directions are allowed)
         '''
         neighbors = []
+        i = node.i
+        j = node.j
         if k is None:
             k = self.k
         if k is None:
@@ -148,7 +198,20 @@ class Map:
         for d in delta:
             if self.in_bounds_cells(i + d[0], j + d[1]) and self.traversable_step(i, j, i + d[0], j + d[1]):  # self.traversable(i + d[0], j + d[1]):
                 neighbors.append((i + d[0], j + d[1]))
-        return neighbors
+        if node.is_left == 0:
+            return neighbors
+        answer = []
+        for (i, j) in neighbors:
+            if j == node.j:
+                if i > node.i:
+                    if (self.is_obstacle(node.i, node.j) and node.is_left == 1) or (self.is_obstacle(node.i, node.j-1) and node.is_left == -1):
+                        answer.append((i, j))
+                if i < node.i:
+                    if (self.is_obstacle(node.i-1, node.j) and node.is_left == 1) or (self.is_obstacle(node.i-1, node.j-1) and node.is_left == -1):
+                        answer.append((i, j))
+            if node.j - j == node.is_left:
+                answer.append((i, j))
+        return answer
 
     def get_size(self):
         return self._height, self._width
@@ -164,48 +227,6 @@ class Map:
         if type(j) is Fraction:
             j = j.__floor__()
         return self._cells[i][j]
-
-
-class Node:
-    '''
-    Node class represents a search node
-
-    - i, j: coordinates of corresponding grid element
-    - g: g-value of the node
-    - h: h-value of the node
-    - F: f-value of the node
-    - parent: pointer to the parent-node
-
-    You might want to add other fields, methods for Node, depending on how you prefer to implement OPEN/CLOSED further on
-    '''
-
-    def __init__(self, i, j, g=0, h=0, F=None, parent=None, k=0):
-        self.i = i
-        self.j = j
-        self.g = g
-        self.h = h
-        self.k = k
-        if F is None:
-            self.F = self.g + h
-        else:
-            self.F = F
-        self.parent = parent
-
-    def __eq__(self, other):
-        return (self.i == other.i) and (self.j == other.j)
-
-    def __lt__(self, other):
-        '''
-        Comparison between self and other. Returns is self < other (self has higher priority).
-
-        In this lab we limit ourselves to cardinal-only uniform-cost moves (cost = 1) and
-        Manhattan distance for A*, so g, h, f-values are integers, so the comparison is straightforward
-        '''
-        return self.F < other.F or ((self.F == other.F) and (self.h < other.h)) \
-               or ((self.F == other.F) and (self.h == other.h) and (self.k > other.k))
-
-    def __hash__(self):
-        return hash((self.i, self.j))
 
 
 class AnyaNode:
