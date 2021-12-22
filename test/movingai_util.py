@@ -1,6 +1,7 @@
 from util.structures import Map
 
-def read_map_from_movingai_file(path):
+
+def read_map_from_movingai_file(path, map_type=Map):
     with open(path, 'rt') as map_file:
         lines = list(map(
             lambda line: line.strip(),
@@ -15,7 +16,7 @@ def read_map_from_movingai_file(path):
             )
             for line in lines[4:]
         ])
-        task_map = Map()
+        task_map = map_type()
         task_map.read_from_string(map_str, width, height)
         return task_map
 
@@ -23,9 +24,8 @@ def read_map_from_movingai_file(path):
 def read_tasks_from_movingai_file(path):
     tasks = []
     with open(path, 'rt') as map_file:
-
         lines = list(map(
-            lambda line:  line.strip(),
+            lambda line: line.strip(),
             map_file.readlines()
         ))[1:]
         for line in lines:
@@ -33,4 +33,3 @@ def read_tasks_from_movingai_file(path):
             tasks.append((int(start_i), int(start_j), int(goal_i), int(goal_j), float(result)))
 
     return tasks
-

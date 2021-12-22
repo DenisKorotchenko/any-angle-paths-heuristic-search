@@ -7,10 +7,10 @@ from util.structures import Map, Node
 
 def draw(grid_map: Map, start:Node=None, goal:Node=None, path=None, nodes_opened=None, nodes_expanded=None, nodes_reexpanded=None):
     '''
-    Auxiliary function that visualizes the enviromnet, the path and opened, expanded and reexpanded cells.
+    Auxiliary function that visualizes the environment, the path and opened, expanded and reexpanded cells.
     '''
-    k = 10
     height, width = grid_map.get_size()
+    k = 2048 // max(height, width)
     h_im = height * k
     w_im = width * k
     im = Image.new('RGB', (w_im, h_im), color='white')
@@ -23,13 +23,18 @@ def draw(grid_map: Map, start:Node=None, goal:Node=None, path=None, nodes_opened
 
     if nodes_opened is not None:
         for node in nodes_opened:
-            draw.ellipse((node.j * k - k / 4, node.i * k - k / 4, node.j * k + k / 4, node.i * k + k / 4),
+            draw.ellipse((node.j * k - 10, node.i * k - 10, node.j * k + 10, node.i * k + 10),
                          fill=(213, 219, 219), width=0)
 
     if nodes_expanded is not None:
         for node in nodes_expanded:
-            draw.ellipse((node.j * k - k / 4, node.i * k - k / 4, node.j * k + k / 4, node.i * k + k / 4),
-                         fill=(131, 145, 146), width=0)
+            if type(node) is Node:
+                draw.ellipse((node.j * k - k / 4, node.i * k - k / 4, node.j * k + k / 4, node.i * k + k / 4),
+                             fill=(131, 145, 146), width=0)
+            else:
+                (i, j) = node
+                draw.ellipse((j * k - k / 4, i * k - k / 4, j * k + k / 4, i * k + k / 4),
+                             fill=(131, 145, 146), width=0)
 
     if nodes_reexpanded is not None:
         for node in nodes_reexpanded:
@@ -40,24 +45,24 @@ def draw(grid_map: Map, start:Node=None, goal:Node=None, path=None, nodes_opened
     if path is not None:
         for step in path:
             if (step is not None):
-                if (grid_map.traversable_step(step.i, step.j, prev_step.i, prev_step.j)):
-                    draw.line((step.j * k, step.i * k, prev_step.j * k, prev_step.i * k), fill=(52, 152, 219), width=2)
+                if (grid_map.traversable_step_long(step.i, step.j, prev_step.i, prev_step.j)):
+                    draw.line((step.j * k, step.i * k, prev_step.j * k, prev_step.i * k), fill=(52, 152, 219), width=7)
                 else:
-                    draw.line((step.j * k, step.i * k, prev_step.j * k, prev_step.i * k), fill=(230, 126, 34), width=2)
+                    draw.line((step.j * k, step.i * k, prev_step.j * k, prev_step.i * k), fill=(230, 126, 34), width=7)
                 prev_step = step
 
-    if path is not None:
-        for step in path:
-            if (step is not None):
-                draw.ellipse((step.j * k - k / 4, step.i * k - k / 4, step.j * k + k / 4, step.i * k + k / 4),
-                             fill=(52, 152, 219), width=0)
+    #if path is not None:
+    #    for step in path:
+    #        if (step is not None):
+    #            draw.ellipse((step.j * k - 15, step.i * k - 15, step.j * k + 15, step.i * k + 15),
+    #                         fill=(52, 152, 219), width=0)
 
     if (start is not None):  # and (grid_map.traversable(start.i, start.j)):
-        draw.ellipse((start.j * k - k / 4, start.i * k - k / 4, start.j * k + k / 4, start.i * k + k / 4),
+        draw.ellipse((start.j * k - 20, start.i * k - 20, start.j * k + 20, start.i * k + 20),
                      fill=(40, 180, 99), width=0)
 
     if (goal is not None):  # and (grid_map.traversable(goal.i, goal.j)):
-        draw.ellipse((goal.j * k - k / 4, goal.i * k - k / 4, goal.j * k + k / 4, goal.i * k + k / 4),
+        draw.ellipse((goal.j * k - 20, goal.i * k - 20, goal.j * k + 20, goal.i * k + 20),
                      fill=(231, 76, 60), width=0)
 
     _, ax = plt.subplots(dpi=150)
