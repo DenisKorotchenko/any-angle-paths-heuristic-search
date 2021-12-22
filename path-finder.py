@@ -18,12 +18,12 @@ def compare_step(prev2i, prev2j, previ, prevj, ci, cj):
 def main():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--astar2k", action="store_const", dest="algorithm", const=0, default=0, help="sets finding algorithm to 2^k A*")
+    parser.add_argument("-s", "--astar2k", action="store_const", dest="algorithm", const=0, default=0, help="sets finding algorithm to 2^k A*, default")
     parser.add_argument("-t", "--theta", action="store_const", dest="algorithm", const=1, help="sets finding algorithm to Theta*")
     parser.add_argument("-a", "--anya", action="store_const", dest="algorithm", const=2, help="sets finding algorithm to ANYA")
     parser.add_argument("-k", action="store", dest="k", default=2, type=int, metavar="k", help="sets 2^k as limit of possible directions of moves, using in 2^k A* and Theta*, ANYA ignoring it")
     parser.add_argument("-v", "--text-output-only", action="store_true", dest="v", default=False, help="disables graphics")
-    parser.add_argument("-f", "--map_file", action="store", dest="input_file", metavar="map_file", default="test/data/Boston_0_256.map", help="filename of map")
+    parser.add_argument("-f", "--map_file", action="store", dest="input_file", metavar="map_file", default="test/data/Moscow_0_256.map", help="filename of map")
     parser.add_argument("-i", "--task", action="store", dest="input", nargs=4, metavar=("start.i", "start.j", "goal.i", "goal.j"), type=int, help="4 integers describes the task, if None then only map will be displayed")
 
     args = parser.parse_args()
@@ -34,7 +34,7 @@ def main():
     task_map = read_map_from_movingai_file(args.input_file, AnyaMap)
     if args.input is None:
         if not args.v:
-            draw(task_map)
+            draw(task_map, show_in_notebook=False)
         else:
             print("Please, define task with -i parameter")
         return
@@ -67,12 +67,12 @@ def main():
             prevj = node.j
         print(path[0][-1].i, path[0][-1].j)
         if not args.v:
-            draw(task_map, start=Node(si, sj), goal=Node(gi, gj), path=path[0])
+            draw(task_map, start=Node(si, sj), goal=Node(gi, gj), path=path[0], show_in_notebook=False)
 
     else:
         print("Path not found!")
         if not args.v:
-            draw(task_map, start=Node(si, sj), goal=Node(gi, gj))
+            draw(task_map, start=Node(si, sj), goal=Node(gi, gj), show_in_notebook=False)
 
 
 main()

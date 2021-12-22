@@ -27,10 +27,56 @@ git clone https://github.com/DenisKorotchenko/any-angle-paths-heuristic-search
 ```
 Then you open ```example.ipynb``` to see examples with some maps from movingai. 
 
-You can also find path for you personal map. For it you need to have a 
+You can also find path for you personal map. You need to have a file in ```movingai``` format (read more in Inputs and Outputs section) with your own map, or you can use a sample map of Moscow which uses by default.
 
-## Inputs and outputs
-Our algorithm works with ```movingai``` format, you can read more about it here [].
+To find path you need to run 
+```bash
+python3 path-finder.py
+```
+
+It has some arguments that you can use:
+```bash
+  -h, --help            show this help message and exit
+  -s, --astar2k         sets finding algorithm to 2^k A*, default
+  -t, --theta           sets finding algorithm to Theta*
+  -a, --anya            sets finding algorithm to ANYA
+  -k k                  sets 2^k as limit of possible directions of moves, using in 2^k A* and Theta*, ANYA ignoring it
+  -v, --text-output-only
+                        disables graphics
+  -f map_file, --map_file map_file
+                        filename of map
+  -i start.i start.j goal.i goal.j, --task start.i start.j goal.i goal.j
+                        4 integers describes the task, if None then only map will be displayed
+```
+
+Let's find a path from (0, 255) to (255, 0) in a default map using ANYA algorithm:
+```bash
+python3 path-finder.py -a -i 0 255 255 0
+```
+
+If you see following text on console
+```bash
+Path found!
+Length:  365.32074507207466
+0 255
+8 249
+13 244
+21 235
+214 16
+216 14
+220 12
+255 0
+```
+and same picture
+
+![image](image/moscow_0_256_example_2.png)
+
+then everything work correctly!
+
+
+
+## Inputs and Outputs
+Our project works with ```movingai``` format, you can read more about it here [**Link**](https://movingai.com/benchmarks/formats.html).
 The output can be represented in graphics or as a succession of vertexes from the start to the target. 
 
 ## Sources

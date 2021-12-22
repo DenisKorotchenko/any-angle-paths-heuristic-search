@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw
 from util.structures import Map, Node
 
 
-def draw(grid_map: Map, start:Node=None, goal:Node=None, path=None, nodes_opened=None, nodes_expanded=None, nodes_reexpanded=None):
+def draw(grid_map: Map, start:Node=None, goal:Node=None, path=None, nodes_opened=None, nodes_expanded=None, nodes_reexpanded=None, show_in_notebook=True):
     '''
     Auxiliary function that visualizes the environment, the path and opened, expanded and reexpanded cells.
     '''
@@ -65,8 +65,11 @@ def draw(grid_map: Map, start:Node=None, goal:Node=None, path=None, nodes_opened
         draw.ellipse((goal.j * k - 20, goal.i * k - 20, goal.j * k + 20, goal.i * k + 20),
                      fill=(231, 76, 60), width=0)
 
-    _, ax = plt.subplots(dpi=150)
-    ax.axes.xaxis.set_visible(False)
-    ax.axes.yaxis.set_visible(False)
-    plt.imshow(np.asarray(im))
-    plt.show()
+    if show_in_notebook:
+        _, ax = plt.subplots(dpi=150)
+        ax.axes.xaxis.set_visible(False)
+        ax.axes.yaxis.set_visible(False)
+        plt.imshow(np.asarray(im))
+        plt.show()
+    else:
+        im.show()
