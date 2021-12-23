@@ -13,13 +13,13 @@ from algorithms.structures import AnyaMap, Node
 def main():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--astar2k", action="store_const", dest="algorithm", const=0, default=0, help="sets finding algorithm to 2^k A*, default")
-    parser.add_argument("-t", "--theta", action="store_const", dest="algorithm", const=1, help="sets finding algorithm to Theta*")
-    parser.add_argument("-a", "--anya", action="store_const", dest="algorithm", const=2, help="sets finding algorithm to ANYA")
-    parser.add_argument("-k", action="store", dest="k", default=2, type=int, metavar="k", help="sets 2^k as limit of possible directions of moves, using in 2^k A* and Theta*, ANYA ignoring it")
+    parser.add_argument("-s", "--astar2k", action="store_const", dest="algorithm", const=0, default=0, help="sets 2^k A* as the search algorithm, used by default")
+    parser.add_argument("-t", "--theta", action="store_const", dest="algorithm", const=1, help="sets Theta* as the search algorithm")
+    parser.add_argument("-a", "--anya", action="store_const", dest="algorithm", const=2, help="sets Anya as the search algorithm")
+    parser.add_argument("-k", action="store", dest="k", default=2, type=int, metavar="k", help="sets 2^k as the limit of possible directions of moves, using in 2^k A* and Theta*, ANYA ignores it, by default 2")
     parser.add_argument("-v", "--text-output-only", action="store_true", dest="v", default=False, help="disables graphics")
-    parser.add_argument("-f", "--map_file", action="store", dest="input_file", metavar="map_file", default="test/data/Moscow_0_256.map", help="filename of map")
-    parser.add_argument("-i", "--task", action="store", dest="input", nargs=4, metavar=("start.i", "start.j", "goal.i", "goal.j"), type=int, help="4 integers describes the task, if None then only map will be displayed")
+    parser.add_argument("-f", "--map_file", action="store", dest="input_file", metavar="map_file", default="test/data/Moscow_0_256.map", help="filename of the map, by default one of the maps of Moscow is used")
+    parser.add_argument("-i", "--task", action="store", dest="input", nargs=4, metavar=("start.i", "start.j", "goal.i", "goal.j"), type=int, help="4 integers describing the task, if None then only map will be displayed")
 
     args = parser.parse_args()
     if args.input_file is None:

@@ -24,19 +24,21 @@ Let's see to the following picture:
 
 It is an example when Theta* can't find optimal path, but as you can see 2^k A* (with parameter k=3) shows an even worse result.
 
-Next picture demonstrates same problem but on the bigger map:
+Next picture demonstrates same problem on the bigger map:
 ![image](image/length_diff_2.png)
 
 
-## Installing and guide for using
+## Installing
 You can download this project with
 ```bash
 git clone https://github.com/DenisKorotchenko/any-angle-paths-heuristic-search
 ``` 
 
+## Getting started
+
 You can find path for you personal map. You need to have a file in ```movingai``` format (read more in Inputs and Outputs section) with your own map, or you can use a sample map of Moscow which uses by default.
 
-To find path you need to run 
+To find path you just need to run 
 ```bash
 python3 path-finder.py
 ```
@@ -44,24 +46,24 @@ python3 path-finder.py
 It has some arguments that you can use:
 ```bash
   -h, --help            show this help message and exit
-  -s, --astar2k         sets finding algorithm to 2^k A*, default
-  -t, --theta           sets finding algorithm to Theta*
-  -a, --anya            sets finding algorithm to ANYA
-  -k k                  sets 2^k as limit of possible directions of moves, using in 2^k A* and Theta*, ANYA ignoring it
+  -s, --astar2k         sets 2^k A* as the search algorithm, used by default
+  -t, --theta           sets Theta* as the search algorithm
+  -a, --anya            sets Anya as the search algorithm
+  -k k                  sets 2^k as the limit of possible directions of moves, using in 2^k A* and Theta*, ANYA ignores it, by default 2
   -v, --text-output-only
                         disables graphics
   -f map_file, --map_file map_file
-                        filename of map
+                        filename of the map, by default one of the maps of Moscow is used
   -i start.i start.j goal.i goal.j, --task start.i start.j goal.i goal.j
-                        4 integers describes the task, if None then only map will be displayed
+                        4 integers describing the task, if None then only map will be displayed
 ```
 
-Let's find a path from (0, 255) to (255, 0) in a default map using ANYA algorithm:
+Let's find a path from (0, 255) to (255, 0) on the default map using ANYA algorithm:
 ```bash
 python3 path-finder.py -a -i 0 255 255 0
 ```
 
-If you see following text on console
+If you see the following text on the console
 ```bash
 Path found!
 Length:  365.32074507207466
@@ -78,23 +80,23 @@ and same picture
 
 ![image](image/moscow_0_256_example_2.png)
 
-then everything work correctly!
+then everything is working correctly!
 
-You can also open ```example.ipynb``` to see some simple examples with test map 
-and run examples with some pre-downloaded maps from movingai.
+You can also open [```example.ipynb```](https://github.com/DenisKorotchenko/any-angle-paths-heuristic-search/blob/master/example.ipynb) to see some simple examples with a test map 
+and run the examples with some pre-downloaded maps from movingai.
 
 ## Inputs and Outputs
 Our project works with ```movingai``` format, you can read more about format [**here**](https://movingai.com/benchmarks/formats.html).
 
-There some pre-downloaded maps and tasks in ```test/data```.
+There are several pre-downloaded maps and tasks in [```test/data```](https://github.com/DenisKorotchenko/any-angle-paths-heuristic-search/tree/master/test/data).
 
 We use 4 packs of maps: city maps, rooms maps, random maps with 10% obstacles and game maps from Warcraft III. 
-You can see an example of using these maps in ```example.ipynb```. 
+You can see an example of using these maps in [```example.ipynb```](https://github.com/DenisKorotchenko/any-angle-paths-heuristic-search/blob/master/example.ipynb). 
 
-If you are working with ```path-finder.py```, then you need to specify filename with map and 
-start and goal coordinates.
+If you work with [```path-finder.py```](https://github.com/DenisKorotchenko/any-angle-paths-heuristic-search/blob/master/path-finder.py), then you just need to specify filename with map and 
+coordinates of start and goal.
 
-The output can be represented in graphics or as a succession of vertexes from the start to the target.
+The output can be represented in graphics or as a succession of vertexes from the start to the goal.
 
 ## Sources
  <a name="source1"></a>
