@@ -1,4 +1,4 @@
-from util.structures import Map
+from algorithms.structures import Map
 
 
 def read_map_from_movingai_file(path, map_type=Map):

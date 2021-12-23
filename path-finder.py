@@ -7,7 +7,7 @@ from algorithms.thetastar import thetastar
 from draw.draw import draw
 from test.movingai_util import read_map_from_movingai_file
 from util.functions import euclidian_distance, make_path
-from util.structures import AnyaMap, Node
+from algorithms.structures import AnyaMap, Node
 
 
 def compare_step(prev2i, prev2j, previ, prevj, ci, cj):

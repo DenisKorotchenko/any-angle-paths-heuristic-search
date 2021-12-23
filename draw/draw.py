@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from PIL import Image, ImageDraw
-from util.structures import Map, Node
+from algorithms.structures import Map, Node
 
 
 def draw(grid_map: Map, start:Node=None, goal:Node=None, path=None, nodes_opened=None, nodes_expanded=None, nodes_reexpanded=None, show_in_notebook=True):

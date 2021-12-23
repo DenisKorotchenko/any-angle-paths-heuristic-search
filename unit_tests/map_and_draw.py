@@ -1,5 +1,5 @@
 from draw.draw import draw
-from util.structures import Map, Node
+from algorithms.structures import Map, Node
 
 height = 15
 width = 30

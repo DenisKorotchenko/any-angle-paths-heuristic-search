@@ -1,5 +1,5 @@
 from sortedcontainers import SortedList as sorted_list
-from .structures import Node, AnyaNode
+from algorithms.structures import Node, AnyaNode
 
 
 class Open:

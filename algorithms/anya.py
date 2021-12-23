@@ -1,6 +1,6 @@
 from unit_tests.unit_tests import draw_neighbors_anya
 from util.containers import OpenAnya
-from util.structures import AnyaMap, AnyaNode
+from algorithms.structures import AnyaMap, AnyaNode
 
 
 def anya(grid_map: AnyaMap, start_i, start_j, goal_i, goal_j, heuristic_func=None, open_type=OpenAnya, show_all=False):

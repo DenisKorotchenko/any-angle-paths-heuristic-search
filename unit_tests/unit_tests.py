@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw
 from matplotlib import pyplot as plt
 
 from util.functions import compute_cost
-from util.structures import Map, AnyaNode, AnyaMap
+from algorithms.structures import Map, AnyaNode, AnyaMap
 
 
 def test_get_neighbors():

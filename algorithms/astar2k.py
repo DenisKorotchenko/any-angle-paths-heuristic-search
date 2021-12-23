@@ -1,5 +1,5 @@
 from util.containers import Open, Closed
-from util.structures import Map, Node
+from algorithms.structures import Map, Node
 from util import functions as uf
 
 
