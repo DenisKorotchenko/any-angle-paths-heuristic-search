@@ -196,7 +196,7 @@ class Map:
         delta = delta[k % 2]
 
         for d in delta:
-            if self.in_bounds_cells(i + d[0], j + d[1]) and self.traversable_step(i, j, i + d[0], j + d[1]):  # self.traversable(i + d[0], j + d[1]):
+            if self.in_bounds(i + d[0], j + d[1]) and self.traversable_step(i, j, i + d[0], j + d[1]):  # self.traversable(i + d[0], j + d[1]):
                 neighbors.append((i + d[0], j + d[1]))
         if node.is_left == 0:
             return neighbors

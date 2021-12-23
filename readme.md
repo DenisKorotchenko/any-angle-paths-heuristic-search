@@ -19,6 +19,14 @@ But the most interesting of the implemented algorithms is ANYA. It is based on A
 This algorithm is optimal and fast enough, but doesn't have such a simple implementation. 
 You can read more about this algorithm in [3].
 
+Let's see to the following picture:
+![image](image/length_diff.png)
+
+It is an example when Theta* can't find optimal path, but as you can see 2^k A* (with parameter k=3) shows an even worse result.
+
+Next picture demonstrates same problem but on the bigger map:
+![image](image/length_diff_2.png)
+
 
 ## Installing and guide for using
 You can download this project with

@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 import numpy as np
 
 from PIL import Image, ImageDraw
 from algorithms.structures import Map, Node
 
 
-def draw(grid_map: Map, start:Node=None, goal:Node=None, path=None, nodes_opened=None, nodes_expanded=None, nodes_reexpanded=None, show_in_notebook=True):
+def draw(grid_map: Map, start:Node=None, goal:Node=None, path=None, path2=None, path3=None, nodes_opened=None, nodes_expanded=None, nodes_reexpanded=None, show_in_notebook=True, labels=None):
     '''
     Auxiliary function that visualizes the environment, the path and opened, expanded and reexpanded cells.
     '''
@@ -41,14 +42,26 @@ def draw(grid_map: Map, start:Node=None, goal:Node=None, path=None, nodes_opened
             draw.ellipse((node.j * k - k / 4, node.i * k - k / 4, node.j * k + k / 4, node.i * k + k / 4),
                          fill=(255, 145, 146), width=0)
 
+    path_colors=[(52,152,219), (218, 40, 235), (235, 228, 40)]
     prev_step = start
     if path is not None:
         for step in path:
             if (step is not None):
-                if (grid_map.traversable_step_long(step.i, step.j, prev_step.i, prev_step.j)):
-                    draw.line((step.j * k, step.i * k, prev_step.j * k, prev_step.i * k), fill=(52, 152, 219), width=7)
-                else:
-                    draw.line((step.j * k, step.i * k, prev_step.j * k, prev_step.i * k), fill=(230, 126, 34), width=7)
+                draw.line((step.j * k, step.i * k, prev_step.j * k, prev_step.i * k), fill=path_colors[0], width=7)
+                prev_step = step
+
+    prev_step = start
+    if path2 is not None:
+        for step in path2:
+            if (step is not None):
+                draw.line((step.j * k, step.i * k, prev_step.j * k, prev_step.i * k), fill=path_colors[1], width=7)
+                prev_step = step
+
+    prev_step = start
+    if path3 is not None:
+        for step in path3:
+            if (step is not None):
+                draw.line((step.j * k, step.i * k, prev_step.j * k, prev_step.i * k), fill=path_colors[2], width=7)
                 prev_step = step
 
     #if path is not None:
@@ -66,10 +79,14 @@ def draw(grid_map: Map, start:Node=None, goal:Node=None, path=None, nodes_opened
                      fill=(231, 76, 60), width=0)
 
     if show_in_notebook:
-        _, ax = plt.subplots(dpi=150)
+        _, ax = plt.subplots(dpi=250)
         ax.axes.xaxis.set_visible(False)
         ax.axes.yaxis.set_visible(False)
         plt.imshow(np.asarray(im))
+        cmap = {1: [52/256, 152/256, 219/256, 1.], 2: [218/256, 40/256, 235/256, 1.], 3: [235/256, 228/256, 40/256, 1.]}
+        if labels is not None:
+            patches = [mpatches.Patch(color=cmap[i], label=labels[i]) for i in cmap]
+            plt.legend(handles=patches, loc="best", borderaxespad=0., prop={"size": 6})
         plt.show()
     else:
         im.show()
