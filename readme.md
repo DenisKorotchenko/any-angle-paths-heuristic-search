@@ -38,7 +38,11 @@ git clone https://github.com/DenisKorotchenko/any-angle-paths-heuristic-search
 
 You can find path for you personal map. You need to have a file in ```movingai``` format (read more in Inputs and Outputs section) with your own map, or you can use a sample map of Moscow which uses by default.
 
-To find path you just need to run 
+To find path you just need to move to project directory:
+```bash
+cd any-angle-paths-heuristic-search
+```
+and run 
 ```bash
 python3 path-finder.py
 ```
