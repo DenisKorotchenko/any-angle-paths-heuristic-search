@@ -13,6 +13,7 @@ def anya(grid_map: AnyaMap, start_i, start_j, goal_i, goal_j, heuristic_func=Non
     nodes_created = 0
 
     for start in starts:
+        nodes_created += 1
         start.update_h(goal_i, goal_j)
         OPEN.add_node(start)
 
@@ -28,8 +29,7 @@ def anya(grid_map: AnyaMap, start_i, start_j, goal_i, goal_j, heuristic_func=Non
             return True, AnyaNode(goal_i, goal_j, None, None, None, None, g=current.F,
                                   parent=current), steps, nodes_created, OPEN, CLOSED
         for neighbour in grid_map.get_neighbors_by_node(current):
-            if neighbour.i == 95 and neighbour.j == 71 and neighbour.bi == 108 and neighbour.bj == 105:
-                print(current.i, current.j, current.ai, current.aj, current.bi, current.bj)
+            nodes_created += 1
             if (neighbour.i, neighbour.j) in CLOSED:
                 if neighbour.g > CLOSED[(neighbour.i, neighbour.j)]:
                     continue

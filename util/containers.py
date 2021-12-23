@@ -29,6 +29,9 @@ class Open:
         except KeyError:
             self.dict.update([((item.i, item.j), item)])
             self.elements.add(item)
+        except ValueError:
+            self.dict.update([((item.i, item.j), item)])
+            self.elements.add(item)
 
     def get_best_node(self, *args):
         return self.elements.pop(0)

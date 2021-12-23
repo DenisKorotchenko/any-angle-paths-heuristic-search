@@ -6,14 +6,9 @@ from algorithms.astar2k import astar2k
 from algorithms.thetastar import thetastar
 from draw.draw import draw
 from test.movingai_util import read_map_from_movingai_file
-from util.functions import euclidian_distance, make_path
+from util.functions import euclidian_distance, make_path, compare_step
 from algorithms.structures import AnyaMap, Node
 
-
-def compare_step(prev2i, prev2j, previ, prevj, ci, cj):
-    if cj == prevj or prev2j == prevj:
-        return prevj == prev2j and cj == prevj
-    return Fraction(ci - previ, cj - prevj) == Fraction(previ - prev2i, prevj - prev2j)
 
 def main():
 
