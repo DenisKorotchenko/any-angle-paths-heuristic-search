@@ -81,7 +81,7 @@ and same picture
 then everything work correctly!
 
 You can also open ```example.ipynb``` to see some simple examples with test map 
-and run examples with some maps from movingai.
+and run examples with some pre-downloaded maps from movingai.
 
 ## Inputs and Outputs
 Our project works with ```movingai``` format, you can read more about format [**here**](https://movingai.com/benchmarks/formats.html).
