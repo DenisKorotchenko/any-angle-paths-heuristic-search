@@ -17,21 +17,7 @@ def thetastar(grid_map:Map, start_i, start_j, goal_i, goal_j, heuristic_func=Non
         if current.i == goal_i and current.j == goal_j:
             return True, current, steps, nodes_created, OPEN, CLOSED
         for (neighbour_i, neighbour_j) in grid_map.get_neighbors(current, k):
-            is_left = 0
-            if grid_map.is_diagonal_intersection(neighbour_i, neighbour_j):
-                if current.j != neighbour_j:
-                    is_left = neighbour_j - current.j
-                else:
-                    if current.i > neighbour_i:
-                        if grid_map.is_obstacle(neighbour_i, neighbour_j):
-                            is_left = 1
-                        else:
-                            is_left = -1
-                    else:
-                        if grid_map.is_obstacle(neighbour_i - 1, neighbour_j):
-                            is_left = 1
-                        else:
-                            is_left = -1
+            is_left = grid_map.is_left_node(neighbour_i, neighbour_j, current)
             if not CLOSED.was_expanded(neighbour_i, neighbour_j, is_left):
                 if (not current.parent is None and grid_map.traversable_step_long(current.parent.i, current.parent.j,
                                                                              neighbour_i, neighbour_j)):

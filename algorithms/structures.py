@@ -96,6 +96,24 @@ class Map:
         return (self.is_obstacle(i, j) and self.is_obstacle(i-1, j-1) and not self.is_obstacle(i-1, j) and not self.is_obstacle(i, j-1)) \
             or (self.is_obstacle(i-1, j) and self.is_obstacle(i, j-1) and not self.is_obstacle(i-1, j-1) and not self.is_obstacle(i, j))
 
+    def is_left_node(self, node_i, node_j, parent):
+        is_left = 0
+        if self.is_diagonal_intersection(node_i, node_j):
+            if parent.j != node_j:
+                is_left = node_j - parent.j
+            else:
+                if parent.i > node_i:
+                    if self.is_obstacle(node_i, node_j):
+                        is_left = 1
+                    else:
+                        is_left = -1
+                else:
+                    if self.is_obstacle(node_i - 1, node_j):
+                        is_left = 1
+                    else:
+                        is_left = -1
+        return is_left
+
     def in_bounds_cells(self, i, j):
         '''
         Check if the cell is on a grid.

@@ -17,21 +17,7 @@ def astar2k(grid_map: Map, start_i, start_j, goal_i, goal_j, heuristic_func=None
         if current.i == goal_i and current.j == goal_j:
             return True, current, steps, nodes_created, OPEN, CLOSED
         for (neighbour_i, neighbour_j) in grid_map.get_neighbors(current, k):
-            is_left=0
-            if grid_map.is_diagonal_intersection(neighbour_i, neighbour_j):
-                if current.j != neighbour_j:
-                    is_left = neighbour_j - current.j
-                else:
-                    if current.i > neighbour_i:
-                        if grid_map.is_obstacle(neighbour_i, neighbour_j):
-                            is_left = 1
-                        else:
-                            is_left = -1
-                    else:
-                        if grid_map.is_obstacle(neighbour_i-1, neighbour_j):
-                            is_left = 1
-                        else:
-                            is_left = -1
+            is_left = grid_map.is_left_node(neighbour_i, neighbour_j, current)
             if not CLOSED.was_expanded(neighbour_i, neighbour_j, is_left):
                 next_node = Node(i=neighbour_i, j=neighbour_j,
                                  g=current.g + uf.compute_cost(current.i, current.j, neighbour_i, neighbour_j),
