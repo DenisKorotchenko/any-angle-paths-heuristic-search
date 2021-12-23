@@ -33,7 +33,7 @@ def thetastar(grid_map:Map, start_i, start_j, goal_i, goal_j, heuristic_func=Non
                         else:
                             is_left = -1
             if not CLOSED.was_expanded(neighbour_i, neighbour_j, is_left):
-                if (not current.parent is None and grid_map.traversable_step(current.parent.i, current.parent.j,
+                if (not current.parent is None and grid_map.traversable_step_long(current.parent.i, current.parent.j,
                                                                              neighbour_i, neighbour_j)):
                     next_node = Node(i=neighbour_i, j=neighbour_j,
                                      g=current.parent.g + uf.compute_cost(current.parent.i, current.parent.j, neighbour_i,

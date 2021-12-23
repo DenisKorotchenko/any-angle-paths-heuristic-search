@@ -137,12 +137,12 @@ class Map:
     def traversable_step(self, i1, j1, i2, j2):
         if i1 == i2:
             if i1 == 0:
-                return not self._cells[i1][min(j1, j2)]
-            return (not self._cells[i1 - 1][min(j1, j2)]) or (not self._cells[i1][min(j1, j2)])
+                return not self.is_obstacle(i1, min(j1, j2))
+            return (not self.is_obstacle(i1 - 1, min(j1, j2))) or (not self.is_obstacle(i1, min(j1, j2)))
         if j1 == j2:
             if j1 == 0:
-                return not self._cells[min(i1, i2)][j1]
-            return (not self._cells[min(i1, i2)][j1 - 1]) or (not self._cells[min(i1, i2)][j1])
+                return not self.is_obstacle(min(i1, i2), j1)
+            return (not self.is_obstacle(min(i1, i2), j1 - 1)) or (not self.is_obstacle(min(i1, i2), j1))
         if i1 > i2:
             i1, i2 = i2, i1
             j1, j2 = j2, j1
@@ -159,7 +159,7 @@ class Map:
             if (i == i1 and d < 0) or (i == i2 - 1 and d > 0):
                 maj -= 1
             for j_ in range(mij, maj + 1):
-                if self._cells[i][j_]:
+                if self.is_obstacle(i, j_):
                     return False
             i += 1
             j += d
