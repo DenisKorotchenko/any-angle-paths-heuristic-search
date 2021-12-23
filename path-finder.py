@@ -1,13 +1,12 @@
 import argparse
-from fractions import Fraction
 
 from algorithms.anya import anya
 from algorithms.astar2k import astar2k
+from algorithms.structures import AnyaMap, Node
 from algorithms.thetastar import thetastar
 from draw.draw import draw
 from test.movingai_util import read_map_from_movingai_file
 from util.functions import euclidian_distance, make_path, compare_step
-from algorithms.structures import AnyaMap, Node
 
 
 def main():

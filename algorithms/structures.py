@@ -3,18 +3,6 @@ from util.functions import compute_cost
 
 
 class Node:
-    '''
-    Node class represents a search node
-
-    - i, j: coordinates of corresponding grid element
-    - g: g-value of the node
-    - h: h-value of the node
-    - F: f-value of the node
-    - parent: pointer to the parent-node
-
-    You might want to add other fields, methods for Node, depending on how you prefer to implement OPEN/CLOSED further on
-    '''
-
     def __init__(self, i, j, g=0, h=0, F=None, parent=None, k=0, is_left=0):
         self.i = i
         self.j = j
@@ -33,12 +21,6 @@ class Node:
         return (self.i == other.i) and (self.j == other.j)
 
     def __lt__(self, other):
-        '''
-        Comparison between self and other. Returns is self < other (self has higher priority).
-
-        In this lab we limit ourselves to cardinal-only uniform-cost moves (cost = 1) and
-        Manhattan distance for A*, so g, h, f-values are integers, so the comparison is straightforward
-        '''
         return self.F < other.F or ((self.F == other.F) and (self.h < other.h)) \
                or ((self.F == other.F) and (self.h == other.h) and (self.k > other.k))
 
@@ -49,9 +31,6 @@ class Node:
 class Map:
 
     def __init__(self, k=None):
-        '''
-        Default constructor
-        '''
         self._width = 0
         self._height = 0
         self._cells = []
@@ -115,9 +94,6 @@ class Map:
         return is_left
 
     def in_bounds_cells(self, i, j):
-        '''
-        Check if the cell is on a grid.
-        '''
         return (0 <= j < self._width) and (0 <= i < self._height)
 
     def traversable_step_long(self, i1, j1, i2, j2):
